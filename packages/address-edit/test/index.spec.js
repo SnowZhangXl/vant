@@ -1,10 +1,8 @@
 /* eslint-disable camelcase */
-import { mount } from '@vue/test-utils';
 import { renderToString } from '@vue/server-test-utils';
 import AddressEdit from '../';
-import AddressDetail from '../Detail';
 import areaList from '../../area/demo/area.simple';
-import { later, transitionStub } from '../../../test/utils';
+import { mount, later, transitionStub } from '../../../test/utils';
 
 transitionStub();
 
@@ -151,38 +149,6 @@ test('on change detail', () => {
   expect(wrapper.emitted('change-detail')[0][0]).toEqual('123');
 });
 
-test('clear address detail in ios', () => {
-  const wrapper = mount(AddressEdit, {
-    propsData: {
-      addressInfo: {
-        address_detail: '123'
-      }
-    }
-  });
-
-  wrapper.vm.isAndroid = false;
-  wrapper.findAll('.van-field__control').at(2).trigger('focus');
-  wrapper.find('.van-field__icon').trigger('touchstart');
-  expect(wrapper.vm.data.address_detail).toEqual('');
-});
-
-test('finish edit address detail in android', () => {
-  const wrapper = mount(AddressDetail, {
-    propsData: {
-      value: '123'
-    }
-  });
-
-  wrapper.vm.$on('input', val => {
-    wrapper.vm.value = val;
-  });
-
-  wrapper.setData({ isAndroid: true });
-  wrapper.find('.van-field__control').trigger('focus');
-  wrapper.find('.van-field__icon').trigger('touchstart');
-  expect(wrapper.vm.value).toEqual('123');
-});
-
 test('watch address info', () => {
   const wrapper = mount(AddressEdit);
   wrapper.setProps({ addressInfo: { name: '123' }});
@@ -218,6 +184,7 @@ test('set/get area code', async() => {
 test('watch area code', async() => {
   const wrapper = mount(AddressEdit, {
     propsData: {
+      areaList: {},
       addressInfo: {
         area_code: '110101'
       }

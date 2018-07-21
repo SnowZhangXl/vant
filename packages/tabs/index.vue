@@ -71,8 +71,13 @@ export default create({
     return {
       tabs: [],
       position: 'content-top',
-      curActive: 0,
-      lineStyle: {}
+      curActive: null,
+      lineStyle: {},
+      events: {
+        resize: false,
+        sticky: false,
+        swipeable: false
+      }
     };
   },
 
@@ -92,6 +97,7 @@ export default create({
 
     tabs(tabs) {
       this.correctActive(this.curActive || this.active);
+      this.scrollIntoView();
       this.setLine();
     },
 
@@ -101,12 +107,16 @@ export default create({
 
       // scroll to correct position
       if (this.position === 'page-top' || this.position === 'content-bottom') {
-        scrollUtils.setScrollTop(this.scrollEl, scrollUtils.getElementTop(this.$el));
+        scrollUtils.setScrollTop(window, scrollUtils.getElementTop(this.$el));
       }
     },
 
-    sticky(isSticky) {
-      this.scrollHandler(isSticky);
+    sticky() {
+      this.handlers(true);
+    },
+
+    swipeable() {
+      this.handlers(true);
     }
   },
 
@@ -115,45 +125,58 @@ export default create({
     this.setLine();
 
     this.$nextTick(() => {
-      if (this.sticky) {
-        this.scrollHandler(true);
-      }
-      if (this.swipeable) {
-        this.swipeableHandler(true);
-      }
-      this.scrollIntoView();
+      this.handlers(true);
+      this.scrollIntoView(true);
     });
   },
 
+  activated() {
+    this.$nextTick(() => {
+      this.handlers(true);
+      this.scrollIntoView(true);
+    });
+  },
+
+  deactivated() {
+    this.handlers(false);
+  },
+
   beforeDestroy() {
-    /* istanbul ignore next */
-    if (this.sticky) {
-      this.scrollHandler(false);
-    }
-    /* istanbul ignore next */
-    if (this.swipeable) {
-      this.swipeableHandler(false);
-    }
+    this.handlers(false);
   },
 
   methods: {
     // whether to bind sticky listener
-    scrollHandler(init) {
-      this.scrollEl = this.scrollEl || scrollUtils.getScrollEventTarget(this.$el);
-      (init ? on : off)(this.scrollEl, 'scroll', this.onScroll, true);
-      if (init) {
+    handlers(bind) {
+      const { events } = this;
+      const sticky = this.sticky && bind;
+      const swipeable = this.swipeable && bind;
+
+      // listen to window resize event
+      if (events.resize !== bind) {
+        events.resize = bind;
+        (bind ? on : off)(window, 'resize', this.setLine, true);
+      }
+
+      // listen to scroll event
+      if (events.sticky !== sticky) {
+        events.sticky = sticky;
+        this.scrollEl = this.scrollEl || scrollUtils.getScrollEventTarget(this.$el);
+        (sticky ? on : off)(this.scrollEl, 'scroll', this.onScroll, true);
         this.onScroll();
       }
-    },
 
-    // whether to bind content swipe listener
-    swipeableHandler(init) {
-      const { content } = this.$refs;
-      const action = init ? on : off;
-      action(content, 'touchstart', this.touchStart);
-      action(content, 'touchmove', this.touchMove);
-      action(content, 'touchend', this.onTouchEnd);
-      action(content, 'touchcancel', this.onTouchEnd);
+      // listen to touch event
+      if (events.swipeable !== swipeable) {
+        events.swipeable = swipeable;
+        const { content } = this.$refs;
+        const action = swipeable ? on : off;
+
+        action(content, 'touchstart', this.touchStart);
+        action(content, 'touchmove', this.touchMove);
+        action(content, 'touchend', this.onTouchEnd);
+        action(content, 'touchcancel', this.onTouchEnd);
+      }
     },
 
     // watch swipe touch end
@@ -174,7 +197,7 @@ export default create({
 
     // adjust tab position
     onScroll() {
-      const scrollTop = scrollUtils.getScrollTop(this.scrollEl);
+      const scrollTop = scrollUtils.getScrollTop(window);
       const elTopToPageTop = scrollUtils.getElementTop(this.$el);
       const elBottomToPageTop = elTopToPageTop + this.$el.offsetHeight - this.$refs.wrap.offsetHeight;
       if (scrollTop > elBottomToPageTop) {
@@ -189,7 +212,7 @@ export default create({
     // update nav bar style
     setLine() {
       this.$nextTick(() => {
-        if (!this.$refs.tabs) {
+        if (!this.$refs.tabs || this.type !== 'line') {
           return;
         }
 
@@ -214,8 +237,14 @@ export default create({
     },
 
     setCurActive(active) {
-      this.curActive = active;
-      this.$emit('input', active);
+      if (active !== this.curActive) {
+        this.$emit('input', active);
+
+        if (this.curActive !== null) {
+          this.$emit('change', active, this.tabs[active].title);
+        }
+        this.curActive = active;
+      }
     },
 
     // emit event when clicked
@@ -224,13 +253,13 @@ export default create({
       if (disabled) {
         this.$emit('disabled', index, title);
       } else {
-        this.$emit('click', index, title);
         this.setCurActive(index);
+        this.$emit('click', index, title);
       }
     },
 
     // scroll active tab into view
-    scrollIntoView() {
+    scrollIntoView(immediate) {
       if (!this.scrollable || !this.$refs.tabs) {
         return;
       }
@@ -240,11 +269,16 @@ export default create({
       const { scrollLeft, offsetWidth: navWidth } = nav;
       const { offsetLeft, offsetWidth: tabWidth } = tab;
 
-      this.scrollTo(nav, scrollLeft, offsetLeft - (navWidth - tabWidth) / 2);
+      this.scrollTo(nav, scrollLeft, offsetLeft - (navWidth - tabWidth) / 2, immediate);
     },
 
     // animate the scrollLeft of nav
-    scrollTo(el, from, to) {
+    scrollTo(el, from, to, immediate) {
+      if (immediate) {
+        el.scrollLeft += to - from;
+        return;
+      }
+
       let count = 0;
       const frames = Math.round(this.duration * 1000 / 16);
       const animate = () => {

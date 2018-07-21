@@ -216,9 +216,9 @@ export default create({
 
     assignAreaValues(values) {
       Object.assign(this.data, {
-        province: values[0].name,
-        city: values[1].name,
-        county: values[2].name
+        province: values[0] ? values[0].name : '',
+        city: values[1] ? values[1].name : '',
+        county: values[2] ? values[2].name : ''
       });
     },
 
@@ -244,7 +244,7 @@ export default create({
     },
 
     getErrorMessage(key) {
-      const value = this.data[key].trim();
+      const value = String(this.data[key]).trim();
       const { $t } = this;
 
       switch (key) {
@@ -282,12 +282,10 @@ export default create({
     setAreaCode(code) {
       this.data.area_code = code || '';
       this.$nextTick(() => {
-        this.$nextTick(() => {
-          const { area } = this.$refs;
-          if (area) {
-            this.assignAreaValues(area.getValues());
-          }
-        });
+        const { area } = this.$refs;
+        if (area) {
+          this.assignAreaValues(area.getValues());
+        }
       });
     },
 

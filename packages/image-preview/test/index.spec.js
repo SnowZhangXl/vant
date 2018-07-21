@@ -1,8 +1,7 @@
 import Vue from 'vue';
 import ImagePreview from '..';
 import ImagePreviewVue from '../image-preview';
-import { mount } from '@vue/test-utils';
-import { triggerDrag } from '../../../test/utils';
+import { mount, triggerDrag } from '../../../test/utils';
 
 const images = [
   'https://img.yzcdn.cn/1.png',
@@ -12,7 +11,7 @@ const images = [
 
 test('render image', () => {
   const wrapper = mount(ImagePreviewVue, {
-    propsData: { images }
+    propsData: { images, value: true }
   });
 
   expect(wrapper).toMatchSnapshot();
@@ -24,7 +23,7 @@ test('render image', () => {
   expect(wrapper.emitted('input')[0][0]).toBeFalsy();
 });
 
-test('function call', (done) => {
+test('function call', done => {
   ImagePreview(images);
   ImagePreview(images.slice(0, 1));
   Vue.nextTick(() => {
@@ -33,11 +32,7 @@ test('function call', (done) => {
     triggerDrag(swipe, 0, 0);
 
     expect(wrapper.querySelectorAll('img').length).toEqual(1);
-
-    Vue.nextTick(() => {
-      expect(wrapper.style.display).toEqual('none');
-      done();
-    });
+    done();
   });
 });
 

@@ -1,5 +1,127 @@
 ## Changelog
 
+### [1.1.14](https://github.com/youzan/vant/tree/v1.1.14)
+`2018-07-19`
+
+**Improvements**
+
+- Collapse: add transition animation [\#1500](https://github.com/youzan/vant/pull/1500)
+- CouponCell: optimize text [\#1499](https://github.com/youzan/vant/pull/1499)
+- Stepper: improve input experience  [\#1484](https://github.com/youzan/vant/pull/1484)
+- Tab: add change event [\#1503](https://github.com/youzan/vant/pull/1503)
+- DatetimePicker: support text formatter [\#1497](https://github.com/youzan/vant/pull/1497)
+
+**Bug Fixes**
+- fix Field inline-height [\#1486](https://github.com/youzan/vant/pull/1486)
+- fix AddressEdit string trim [\#1487](https://github.com/youzan/vant/pull/1487)
+- fix Progress nesting in Collapse [\#1513](https://github.com/youzan/vant/pull/1513)
+- fix Stepper integer in android [\#1482](https://github.com/youzan/vant/pull/1482)
+- fix Tab scroll position after activated [\#1512](https://github.com/youzan/vant/pull/1512)
+- fix Tab sticky in scroll element [\#1496](https://github.com/youzan/vant/pull/1496)
+
+
+### [1.1.13](https://github.com/youzan/vant/tree/v1.1.13)
+`2018-07-13`
+
+**Improvements**
+
+- Button: add plain prop [\#1444](https://github.com/youzan/vant/pull/1444)
+- Toast: improve type definition [\#1468](https://github.com/youzan/vant/pull/1468)
+- Dialog: improve type definition [\#1467](https://github.com/youzan/vant/pull/1467)
+- Radio: add label-position prop [\#1446](https://github.com/youzan/vant/pull/1446)
+- Radio: add label-disabled prop [\#1445](https://github.com/youzan/vant/pull/1445)
+- Search: should trigger blur after click search button [\#1448](https://github.com/youzan/vant/pull/1448)
+
+**Bug Fixes**
+
+- fix Swipe multi finger touch [\#1478](https://github.com/youzan/vant/pull/1478)
+- fix ImagePreview start position [\#1456](https://github.com/youzan/vant/pull/1456)
+- fix Picker incorrect option height in some android devices [\#1449](https://github.com/youzan/vant/pull/1449)
+- fix vue-lazyload version [\#1481](https://github.com/youzan/vant/pull/1481)
+
+
+### [1.1.12](https://github.com/youzan/vant/tree/v1.1.12)
+`2018-07-06`
+
+**Improvements**
+
+- Area: add reset method [\#1427](https://github.com/youzan/vant/pull/1427)
+- Checkbox: support custom icon [\#1414](https://github.com/youzan/vant/pull/1414)
+- Checkbox: with cell [\#1430](https://github.com/youzan/vant/pull/1430)
+- Swipe: not swipeable when page scrolling [\#1425](https://github.com/youzan/vant/pull/1425)
+- Swipe: window resize [\#1413](https://github.com/youzan/vant/pull/1413)
+
+**Bug Fixes**
+
+- fix Progress text empty [\#1411](https://github.com/youzan/vant/pull/1411)
+- fix Tab random insert order [\#1429](https://github.com/youzan/vant/pull/1429)
+- fix error when use Vue.use in typescript [\#1410](https://github.com/youzan/vant/pull/1410)
+- fix vant-css missing dependencies [\#1426](https://github.com/youzan/vant/pull/1426)
+
+
+### [1.1.11](https://github.com/youzan/vant/tree/v1.1.11)
+`2018-07-04`
+
+**Improvements**
+
+- Actionsheet: support lazy render [\#1365](https://github.com/youzan/vant/pull/1365)
+- AddressEdit: adjust event order [\#1402](https://github.com/youzan/vant/pull/1402)
+- SwitchCell: add size prop [\#1371](https://github.com/youzan/vant/pull/1371)
+- Checkbox: add label-position prop [\#1394](https://github.com/youzan/vant/pull/1394)
+- Picker: optimize render performance [\#1391](https://github.com/youzan/vant/pull/1391)
+- Tab: update card style [\#1364](https://github.com/youzan/vant/pull/1364)
+- Document: dialog before-close usage [\#1383](https://github.com/youzan/vant/pull/1383)
+
+**Bug Fixes**
+
+- fix Area error when city list empty [\#1374](https://github.com/youzan/vant/pull/1374)
+- fix DatetimePicker change event params [\#1370](https://github.com/youzan/vant/pull/1370)
+- fix Field readonly in safari [\#1399](https://github.com/youzan/vant/pull/1399)
+- fix Field should hide clear icon when readonly [\#1395](https://github.com/youzan/vant/pull/1395)
+- fix Tab insert order [\#1372](https://github.com/youzan/vant/pull/1372)
+
+
+### [1.1.10](https://github.com/youzan/vant/tree/v1.1.10)
+`2018-06-28`
+
+**Breaking changes**
+
+- Icon: remove birthday-privilege、member-day-privilege、balance-details [\#1331](https://github.com/youzan/vant/pull/1331)
+
+**Improvements**
+
+- Cell: add arrow-direction prop [\#1323](https://github.com/youzan/vant/pull/1323)
+- Field: add is-link prop [\#1347](https://github.com/youzan/vant/pull/1347)
+- Field: add input-align prop [\#1352](https://github.com/youzan/vant/pull/1352)
+- Field: add label-align prop [\#1353](https://github.com/youzan/vant/pull/1353)
+- Icon: add idcard icon [\#1331](https://github.com/youzan/vant/pull/1331)
+- Sku: add stepper-change event [\#1349](https://github.com/youzan/vant/pull/1349)
+- PullRefresh: add disabled prop [\#1336](https://github.com/youzan/vant/pull/1336)
+
+**Bug Fixes**
+
+- fix List visibility check [\#1345](https://github.com/youzan/vant/pull/1345)
+- fix Sku image clip [\#1334](https://github.com/youzan/vant/pull/1334)
+
+
+### [1.1.9](https://github.com/youzan/vant/tree/v1.1.9)
+`2018-06-22`
+
+**Improvements**
+
+- Actionsheet: support disable option [\#1293](https://github.com/youzan/vant/pull/1293)
+- Field: support clearable [\#1309](https://github.com/youzan/vant/pull/1309)
+- Layout: support flex layout [\#1305](https://github.com/youzan/vant/pull/1305)
+- Locale: add type definition [\#1294](https://github.com/youzan/vant/pull/1294)
+- Tabbar: add z-index prop [\#1310](https://github.com/youzan/vant/pull/1310)
+- Stepper: improve blur behavior [\#1316](https://github.com/youzan/vant/pull/1316)
+
+**Bug Fixes**
+
+- fix DatetimePicker visible-item-count prop [\#1312](https://github.com/youzan/vant/pull/1312)
+- fix Tab line resize [\#1304](https://github.com/youzan/vant/pull/1304)
+
+
 ### [1.1.8](https://github.com/youzan/vant/tree/v1.1.8)
 `2018-06-14`
 

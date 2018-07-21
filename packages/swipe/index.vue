@@ -26,6 +26,7 @@
 <script>
 import create from '../utils/create';
 import Touch from '../mixins/touch';
+import { on, off } from '../utils/event';
 
 export default create({
   name: 'swipe',
@@ -72,10 +73,18 @@ export default create({
 
   mounted() {
     this.initialize();
+
+    if (!this.$isServer) {
+      on(window, 'resize', this.onResize, true);
+    }
   },
 
   destroyed() {
     this.clear();
+
+    if (!this.$isServer) {
+      off(window, 'resize', this.onResize, true);
+    }
   },
 
   watch: {
@@ -128,7 +137,7 @@ export default create({
 
   methods: {
     // initialize swipe position
-    initialize() {
+    initialize(active = this.initialSwipe) {
       clearTimeout(this.timer);
       if (this.$el) {
         const rect = this.$el.getBoundingClientRect();
@@ -136,12 +145,16 @@ export default create({
         this.height = rect.height;
       }
       this.swiping = true;
-      this.active = this.initialSwipe;
+      this.active = active;
       this.offset = this.count > 1 ? -this.size * this.active : 0;
       this.swipes.forEach(swipe => {
         swipe.offset = 0;
       });
       this.autoPlay();
+    },
+
+    onResize() {
+      this.initialize(this.activeIndicator);
     },
 
     onTouchStart(event) {
@@ -164,9 +177,8 @@ export default create({
       ) {
         event.preventDefault();
         event.stopPropagation();
+        this.move(0, Math.min(Math.max(this.delta, -this.size), this.size));
       }
-
-      this.move(0, Math.min(Math.max(this.delta, -this.size), this.size));
     },
 
     onTouchEnd() {
@@ -191,20 +203,21 @@ export default create({
         return;
       }
 
-      if (move) {
+      if (move && active + move >= -1 && active + move <= count) {
         if (active === -1) {
           swipes[count - 1].offset = 0;
         }
         swipes[0].offset = atLast && move > 0 ? trackSize : 0;
 
         this.active += move;
-      } else {
-        if (atFirst) {
-          swipes[count - 1].offset = delta > 0 ? -trackSize : 0;
-        } else if (atLast) {
-          swipes[0].offset = delta < 0 ? trackSize : 0;
-        }
       }
+
+      if (atFirst) {
+        swipes[count - 1].offset = delta > 0 || move < 0 ? -trackSize : 0;
+      } else if (atLast) {
+        swipes[0].offset = delta < 0 || move > 0 ? trackSize : 0;
+      }
+
       this.offset = offset - this.active * this.size;
     },
 

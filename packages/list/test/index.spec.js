@@ -1,6 +1,13 @@
 import List from '..';
-import { mount } from '@vue/test-utils';
-import { later } from '../../../test/utils';
+import { mount, later } from '../../../test/utils';
+
+function mockOffsetParent(el) {
+  Object.defineProperty(el, 'offsetParent', {
+    get() {
+      return {};
+    }
+  });
+}
 
 test('load event', async() => {
   const wrapper = mount(List);
@@ -8,6 +15,8 @@ test('load event', async() => {
   wrapper.vm.$on('input', value => {
     wrapper.vm.loading = value;
   });
+
+  mockOffsetParent(wrapper.vm.$el);
 
   await later();
   expect(wrapper.emitted('load')).toBeTruthy();
@@ -26,6 +35,8 @@ test('finished', async() => {
       finished: true
     }
   });
+
+  mockOffsetParent(wrapper.vm.$el);
 
   await later();
   expect(wrapper.emitted('load')).toBeFalsy();

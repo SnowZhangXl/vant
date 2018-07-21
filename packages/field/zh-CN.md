@@ -27,11 +27,12 @@ Vue.use(Field);
 <van-cell-group>
   <van-field
     v-model="username"
-    label="用户名"
-    icon="clear"
-    placeholder="请输入用户名"
     required
-    @click-icon="username = ''"
+    clearable
+    label="用户名"
+    icon="question"
+    placeholder="请输入用户名"
+    @click-icon="$toast('question')"
   />
 
   <van-field
@@ -99,12 +100,11 @@ Vue.use(Field);
 ```html
 <van-cell-group>
   <van-field
-    center
     v-model="sms"
+    center
+    clearable
     label="短信验证码"
     placeholder="请输入短信验证码"
-    icon="clear"
-    @click-icon="sms = ''"
   >
     <van-button slot="button" size="small" type="primary">发送验证码</van-button>
   </van-field>
@@ -113,17 +113,24 @@ Vue.use(Field);
 
 ### API
 
-Field 默认支持 Input 标签所有的原生属性，比如 `maxlength`、`placeholder`、`readonly`、`autofocus` 等
+Field 默认支持 Input 标签所有的原生属性，比如 `maxlength`、`placeholder`、`autofocus` 等
 
 | 参数 | 说明 | 类型 | 默认值 |
 |-----------|-----------|-----------|-------------|-------------|
-| label | 标签 | `String` | - |
+| label | 输入框左侧文本 | `String` | - |
 | value | 当前输入的值 | `String | Number` | - |
 | type | 可设置为任意原生类型, 如 `number` `tel` `textarea` | `String` | `text` |
+| border | 是否显示内边框 | `Boolean` | `true` |
 | disabled | 是否禁用输入框 | `Boolean` | `false` |
+| readonly | 是否只读 | `Boolean` | `false` |
+| clearable | 是否启用清除控件 | `Boolean` | `false` |
+| required | 是否显示表单必填星号 | `Boolean` | `false` |
+| is-link | 是否展示右侧箭头并开启点击反馈 | `Boolean` | `false` |
 | error | 是否将输入内容标红 | `Boolean` | `false` |
-| error-message | 底部错误提示文案 | `String` | `''` |
-| autosize | 自适应内容高度，只对 textarea 有效，可传入对象，如 { maxHeight: 100, minHeight: 50 }，单位为 px | `Boolean | Object` | `false` |
+| error-message | 底部错误提示文案，为空时不展示 | `String` | `''` |
+| label-align | 文本对齐方式，可选值为 `center` `right` | `String` | `left` |
+| input-align | 输入框内容对齐方式，可选值为 `center` `right` | `String` | `left` |
+| autosize | 自适应内容高度，只对 textarea 有效，可传入对象,<br>如 { maxHeight: 100, minHeight: 50 }，单位为 px | `Boolean | Object` | `false` |
 | icon | 输入框尾部图标 (可选值见 Icon 组件)  | `String` | - |
 | left-icon | 输入框左侧图标 (可选值见 Icon 组件)  | `String` | - |
 

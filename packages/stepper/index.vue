@@ -10,7 +10,7 @@
       :value="currentValue"
       :disabled="disabled || disableInput"
       @input="onInput"
-      @keypress="onKeypress"
+      @blur="onBlur"
     >
     <button
       :class="b('plus', { disabled: plusDisabled })"
@@ -80,7 +80,6 @@ export default create({
   watch: {
     value(val) {
       if (val !== '') {
-        val = this.correctValue(+val);
         if (val !== this.currentValue) {
           this.currentValue = val;
         }
@@ -90,14 +89,18 @@ export default create({
 
   methods: {
     correctValue(value) {
-      return isNaN(value)
-        ? this.min
-        : Math.max(this.min, Math.min(this.max, value));
+      if (isNaN(value)) {
+        return this.min;
+      }
+
+      value = Math.max(this.min, Math.min(this.max, value));
+
+      return this.integer ? Math.floor(value) : value;
     },
 
     onInput(event) {
       const { value } = event.target;
-      this.currentValue = value ? this.correctValue(+value) : value;
+      this.currentValue = Math.min(this.max, value);
       event.target.value = this.currentValue;
       this.emitInput();
     },
@@ -115,10 +118,14 @@ export default create({
       this.$emit(type);
     },
 
-    onKeypress(event) {
-      if (this.integer && event.keyCode === 46) {
-        event.preventDefault();
+    onBlur(event) {
+      if (!this.value) {
+        this.currentValue = +this.min;
+      } else {
+        this.currentValue = this.correctValue(+this.currentValue);
       }
+      this.emitInput();
+      this.$emit('blur', event);
     },
 
     emitInput() {

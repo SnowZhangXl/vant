@@ -9,9 +9,12 @@ exports[`create a AddressEdit 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="text" maxlength="15" placeholder="名字" value="" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="text" maxlength="15" placeholder="名字" value="" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
@@ -22,39 +25,44 @@ exports[`create a AddressEdit 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="tel" placeholder="手机或固定电话" value="" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="tel" placeholder="手机或固定电话" value="" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
     </div>
-    <div readonly="readonly" placeholder="收件地区" class="van-cell van-hairline van-field">
+    <div placeholder="收件地区" class="van-cell van-hairline van-field">
       <!---->
       <div class="van-cell__title"><span>收件地区</span>
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="text" readonly="readonly" placeholder="收件地区" value="" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="text" readonly="readonly" placeholder="收件地区" value="" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
     </div>
     <div>
-      <div rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-cell van-hairline van-field van-field--has-icon">
+      <div rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-cell van-hairline van-field">
         <!---->
         <div class="van-cell__title"><span>详细地址</span>
           <!---->
         </div>
         <div class="van-cell__value">
-          <textarea rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-field__control"></textarea>
-          <!---->
-          <div class="van-field__icon">
-            <div>
-              <!---->
-            </div>
+          <div class="van-field__body">
+            <textarea rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-field__control"></textarea>
+            <!---->
+            <!---->
+            <!---->
           </div>
           <!---->
         </div>
@@ -82,6 +90,15 @@ exports[`create a AddressEdit 1`] = `
         <div class="van-loading van-loading--circular van-loading--black"><span class="van-loading__spinner van-loading__spinner--circular"> <svg viewBox="25 25 50 50" class="van-loading__circular"><circle cx="50" cy="50" r="20" fill="none"></circle></svg></span></div>
       </div>
       <div class="van-picker__columns" style="height:220px;">
+        <div class="van-picker-column" style="height:220px;">
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
+        </div>
+        <div class="van-picker-column" style="height:220px;">
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
+        </div>
+        <div class="van-picker-column" style="height:220px;">
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
+        </div>
         <div class="van-hairline--top-bottom van-picker__frame" style="height:44px;"></div>
       </div>
     </div>
@@ -98,9 +115,12 @@ exports[`create a AddressEdit with props 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="text" maxlength="15" placeholder="名字" value="测试" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="text" maxlength="15" placeholder="名字" value="测试" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
@@ -111,39 +131,44 @@ exports[`create a AddressEdit with props 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="tel" placeholder="手机或固定电话" value="13000000000" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="tel" placeholder="手机或固定电话" value="13000000000" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
     </div>
-    <div readonly="readonly" placeholder="收件地区" class="van-cell van-hairline van-field">
+    <div placeholder="收件地区" class="van-cell van-hairline van-field">
       <!---->
       <div class="van-cell__title"><span>收件地区</span>
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="text" readonly="readonly" placeholder="收件地区" value="北京市 北京市 朝阳区" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="text" readonly="readonly" placeholder="收件地区" value="北京市 北京市 朝阳区" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
     </div>
     <div>
-      <div rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-cell van-hairline van-field van-field--has-icon">
+      <div rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-cell van-hairline van-field">
         <!---->
         <div class="van-cell__title"><span>详细地址</span>
           <!---->
         </div>
         <div class="van-cell__value">
-          <textarea rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-field__control">详细地址</textarea>
-          <!---->
-          <div class="van-field__icon">
-            <div>
-              <!---->
-            </div>
+          <div class="van-field__body">
+            <textarea rows="1" maxlength="200" placeholder="如街道、楼层、门牌号等" class="van-field__control">详细地址</textarea>
+            <!---->
+            <!---->
+            <!---->
           </div>
           <!---->
         </div>
@@ -156,9 +181,12 @@ exports[`create a AddressEdit with props 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <input type="tel" maxlength="6" placeholder="邮政编码" value="10000" class="van-field__control">
-        <!---->
-        <!---->
+        <div class="van-field__body">
+          <input type="tel" maxlength="6" placeholder="邮政编码" value="10000" class="van-field__control">
+          <!---->
+          <!---->
+          <!---->
+        </div>
         <!---->
       </div>
       <!---->
@@ -169,7 +197,7 @@ exports[`create a AddressEdit with props 1`] = `
         <!---->
       </div>
       <div class="van-cell__value">
-        <div title="设为默认收货地址" class="van-switch van-switch--on" style="font-size:30px;">
+        <div title="设为默认收货地址" class="van-switch van-switch--on" style="font-size:26px;">
           <div class="van-switch__node">
             <!---->
           </div>
@@ -195,22 +223,13 @@ exports[`create a AddressEdit with props 1`] = `
       <!---->
       <div class="van-picker__columns" style="height:220px;">
         <div class="van-picker-column" style="height:220px;">
-          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;">
-            <li class="van-ellipsis van-picker-column__item van-picker-column__item--selected">北京市</li>
-            <li class="van-ellipsis van-picker-column__item">天津市</li>
-          </ul>
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
         </div>
         <div class="van-picker-column" style="height:220px;">
-          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;">
-            <li class="van-ellipsis van-picker-column__item van-picker-column__item--selected">北京市</li>
-            <li class="van-ellipsis van-picker-column__item">县</li>
-          </ul>
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
         </div>
         <div class="van-picker-column" style="height:220px;">
-          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;">
-            <li class="van-ellipsis van-picker-column__item van-picker-column__item--selected">东城区</li>
-            <li class="van-ellipsis van-picker-column__item">西城区</li>
-          </ul>
+          <ul style="transition:0ms;transform:translate3d(0, 88px, 0);line-height:44px;"></ul>
         </div>
         <div class="van-hairline--top-bottom van-picker__frame" style="height:44px;"></div>
       </div>

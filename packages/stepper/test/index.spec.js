@@ -1,5 +1,5 @@
 import Stepper from '..';
-import { mount } from '@vue/test-utils';
+import { mount } from '../../../test/utils';
 
 test('disabled stepper', () => {
   const wrapper = mount(Stepper, {
@@ -64,10 +64,10 @@ test('correct value when value is not correct', () => {
 
   expect(wrapper.emitted('input')).toEqual([
     [30],
-    [10],
-    [''],
-    [10],
-    [10],
+    [1],
+    [0],
+    [0],
+    [0],
     [30],
     [30]
   ]);
@@ -80,15 +80,32 @@ test('only allow interger', () => {
     }
   });
 
-  const fn = jest.fn();
-  wrapper.vm.onKeypress({
-    keyCode: 46,
-    preventDefault: fn
-  });
-  wrapper.vm.onKeypress({
-    keyCode: 45,
-    preventDefault: fn
+  const input = wrapper.find('input');
+  input.element.value = '1.2';
+  input.trigger('input');
+  input.trigger('blur');
+
+  expect(wrapper.emitted('input')).toEqual([[1.2], [1]]);
+});
+
+test('stepper blur', () => {
+  const wrapper = mount(Stepper, {
+    propsData: {
+      value: 5,
+      min: 3
+    }
   });
 
-  expect(fn.mock.calls.length).toEqual(1);
+  wrapper.vm.$on('input', value => {
+    wrapper.setProps({ value });
+  });
+
+  const input = wrapper.find('input');
+  input.trigger('blur');
+  input.element.value = '';
+  input.trigger('input');
+  input.trigger('blur');
+
+  expect(wrapper.emitted('input')).toEqual([[5], [0], [3]]);
+  expect(wrapper.emitted('blur')).toBeTruthy();
 });

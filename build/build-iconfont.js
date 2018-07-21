@@ -15,7 +15,7 @@ const local = require('../packages/icon/config/template-local');
 const iconDir = path.join(__dirname, '../packages/icon');
 const cssDir = path.join(__dirname, '../packages/vant-css/src');
 const svgDir = path.join(iconDir, 'svg');
-const sketch = path.join(iconDir, 'assert/icons.sketch');
+const sketch = path.join(iconDir, 'assets/icons.sketch');
 const template = path.join(iconDir, 'config/template.css');
 
 // get md5 from sketch
@@ -26,7 +26,7 @@ const ttf = `${config.name}-${md5}.ttf`;
 // should install sketchtool first
 // install guide: https://developer.sketchapp.com/guides/sketchtool/
 shell.exec(
-  `sketchtool export slices --formats=svg --overwriting=YES --save-for-web=YES --output=${svgDir} ${sketch}`
+  `/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool export slices --formats=svg --overwriting=YES --save-for-web=YES --output=${svgDir} ${sketch}`
 );
 
 // remove previous ttf

@@ -1,7 +1,6 @@
 import Area from '..';
-import { mount } from '@vue/test-utils';
 import areaList from '../demo/area.simple';
-import { later, triggerDrag } from '../../../test/utils';
+import { mount, later, triggerDrag } from '../../../test/utils';
 
 const firstOption = [
   { code: '110000', name: '北京市' },
@@ -9,12 +8,14 @@ const firstOption = [
   { code: '110101', name: '东城区' }
 ];
 
-test('confirm & cancel event', () => {
+test('confirm & cancel event', async() => {
   const wrapper = mount(Area, {
     propsData: {
       areaList
     }
   });
+
+  await later();
 
   wrapper.find('.van-picker__confirm').trigger('click');
   wrapper.find('.van-picker__cancel').trigger('click');
@@ -24,7 +25,12 @@ test('confirm & cancel event', () => {
 });
 
 test('watch areaList & code', async() => {
-  const wrapper = mount(Area);
+  const wrapper = mount(Area, {
+    propsData: {
+      areaList
+    }
+  });
+
   expect(wrapper).toMatchSnapshot();
   wrapper.setProps({ areaList });
   expect(wrapper).toMatchSnapshot();
@@ -34,8 +40,7 @@ test('watch areaList & code', async() => {
   expect(wrapper).toMatchSnapshot();
 
   wrapper.setProps({
-    value: '',
-    areaList: null
+    value: ''
   });
   expect(wrapper).toMatchSnapshot();
 });
@@ -64,5 +69,20 @@ test('getValues method', () => {
       expect(this.getValues()).toEqual([]);
     }
   });
+
   expect(wrapper.vm.getValues()).toEqual(firstOption);
+});
+
+test('reset method', async() => {
+  const wrapper = mount(Area, {
+    propsData: {
+      areaList,
+      value: '120225'
+    }
+  });
+
+  await later();
+  expect(wrapper).toMatchSnapshot();
+  wrapper.vm.reset();
+  expect(wrapper).toMatchSnapshot();
 });
